@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MDR Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="font-family: Arial, sans-serif; max-width: 500px; margin: 40px auto;">
+  <h2>MDR / Final Value Calculator</h2>
+
+  <label>
+    Quote to Patient (₹):
+    <input id="quote" type="number" value="100000" />
+  </label>
+  <br><br>
+
+  <label>
+    Expected Period:
+    <select id="period">
+      <option value="0.04">Up to 3 months (4%)</option>
+      <option value="0.07">Up to 6 months (7%)</option>
+      <option value="0.09" selected>Up to 9 months (9%)</option>
+      <option value="0.115">Up to 12 months (11.5%)</option>
+    </select>
+  </label>
+  <br><br>
+
+  <button onclick="calculate()">Calculate Final Value</button>
+
+  <h3 id="result"></h3>
+
+  <script>
+    function calculate() {
+      const quote = parseFloat(document.getElementById('quote').value || 0);
+      const mdr = parseFloat(document.getElementById('period').value || 0);
+
+      const mdrAmount = mdr * quote;
+      const extra5pct = mdrAmount * 0.05;
+      const finalValue = quote - mdrAmount - extra5pct - 999;
+
+      document.getElementById('result').innerText =
+        `Final Value: ₹${finalValue.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>
